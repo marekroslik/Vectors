@@ -1,0 +1,12 @@
+opt_in_rules:
+  - empty_count
+  - yoda_condition
+  - trailing_closure
+  - indentation_width
+
+included:
+  - Vectors
+excluded:
+  - Pods
+
+reporter: "xcode"
