@@ -1,6 +1,6 @@
 import Foundation
 
-final class VectorModel {
+struct VectorModel {
     let id: Int
     let start: CGPoint
     let end: CGPoint
@@ -13,14 +13,5 @@ final class VectorModel {
         self.id = id
         self.start = start
         self.end = end
-    }
-}
-
-extension VectorModel: Hashable {
-    static func == (lhs: VectorModel, rhs: VectorModel) -> Bool {
-        return lhs.id == rhs.id
-    }
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(id)
     }
 }
