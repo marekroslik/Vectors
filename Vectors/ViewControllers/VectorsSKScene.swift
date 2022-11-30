@@ -1,15 +1,20 @@
 import SpriteKit
 
 final class VectorsSKScene: SKScene {
-    private let vectors: [VectorModel]
-    private var cameraPosition: CGPoint = CGPoint.zero
+    private var vectors: [VectorModel]
+
     private var movableNode: SKNode?
-    private var movableNodePosition: CGPoint = CGPoint.zero
+    private var action: Actions?
+
+    enum Actions {
+        case editVectorStartPosition
+        case editVectorEndPosition
+        case vectorParallelTranslation
+        case moveTheСamera
+    }
 
     private let blockSize: CGFloat = 100
     private let innerSize: CGFloat = 1000
-
-    private var willMoveNode: SKNode?
 
     override func didMove(to view: SKView) {
         self.backgroundColor = .black
@@ -88,8 +93,46 @@ extension VectorsSKScene {
 extension VectorsSKScene {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         if let coordinates = touches.first?.location(in: self) {
-            if let node: SKNode = self.nodes(at: coordinates).first {
+            if
+                let node: SKNode = self.nodes(at: coordinates).first,
+                let vector = vectors.first(
+                    where: {
+                        $0.id == node.name
+                    }
+                ) {
                 movableNode = node
+                let tolerance: CGFloat = 20
+
+                let startToleranceX = (
+                    vector.start.x * blockSize - tolerance
+                )...(
+                    vector.start.x * blockSize + tolerance
+                )
+                let startToleranceY = (
+                    vector.start.y * blockSize - tolerance
+                )...(
+                    vector.start.y  * blockSize + tolerance
+                )
+
+                let endToleranceX = (
+                    vector.end.x * blockSize - tolerance
+                )...(
+                    vector.end.x * blockSize + tolerance
+                )
+                let endToleranceY = (
+                    vector.end.y * blockSize - tolerance
+                )...(
+                    vector.end.y  * blockSize + tolerance
+                )
+                if (startToleranceX).contains(coordinates.x) && (startToleranceY).contains(coordinates.y) {
+                    action = .editVectorStartPosition
+                } else if (endToleranceX).contains(coordinates.x) && (endToleranceY).contains(coordinates.y) {
+                    action = .editVectorEndPosition
+                } else {
+                    action = .vectorParallelTranslation
+                }
+            } else {
+                action = .moveTheСamera
             }
         }
     }
@@ -101,30 +144,71 @@ extension VectorsSKScene {
             let touchFirstY = touches.first?.location(in: self).y,
             let touchPreviousY = touches.first?.previousLocation(in: self).y
         else { return }
-        let xDelta = touchFirstX  - touchPreviousX
-        let yDelta = touchFirstY  - touchPreviousY
-        if let movableNode {
-            movableNode.position = CGPoint(
-                x: movableNode.position.x + xDelta,
-                y: movableNode.position.y + yDelta
-            )
-        } else {
-            guard
-                let cameraPositionX = camera?.position.x,
-                let cameraPositionY = camera?.position.y
-            else { return }
-            camera?.position = CGPoint(
-                x: cameraPositionX - xDelta,
-                y: cameraPositionY - yDelta
+        switch action {
+        case .editVectorStartPosition:
+            actionEditVector(startX: touchFirstX, startY: touchFirstY)
+        case .editVectorEndPosition:
+            actionEditVector(endX: touchFirstX, endY: touchFirstY)
+        case .vectorParallelTranslation:
+            let xDelta = touchFirstX  - touchPreviousX
+            let yDelta = touchFirstY  - touchPreviousY
+            actionVectorParallelTranslation(xDelta: xDelta, yDelta: yDelta)
+        case .moveTheСamera:
+            let xDelta = touchFirstX  - touchPreviousX
+            let yDelta = touchFirstY  - touchPreviousY
+            moveTheCamera(xDelta: xDelta, yDelta: yDelta)
+        default:
+            return
+        }
+    }
+
+    private func actionEditVector(startX: CGFloat, startY: CGFloat) {
+        if let movableNode, let indexMovableNode = vectors.firstIndex(where: { $0.id == movableNode.name }) {
+            vectors[indexMovableNode].start = CGPoint(x: startX / blockSize, y: startY / blockSize)
+            drawVector(
+                start: vectors[indexMovableNode].start,
+                end: vectors[indexMovableNode].end,
+                id: vectors[indexMovableNode].id
             )
         }
     }
 
+    private func actionEditVector(endX: CGFloat, endY: CGFloat) {
+        if let movableNode, let indexMovableNode = vectors.firstIndex(where: { $0.id == movableNode.name }) {
+            vectors[indexMovableNode].end = CGPoint(x: endX / blockSize, y: endY / blockSize)
+            drawVector(
+                start: vectors[indexMovableNode].start,
+                end: vectors[indexMovableNode].end,
+                id: vectors[indexMovableNode].id
+            )
+        }
+    }
+
+    private func actionVectorParallelTranslation(xDelta: CGFloat, yDelta: CGFloat) {
+        if let movableNode, let indexMovableNode = vectors.firstIndex(where: { $0.id == movableNode.name }) {
+            vectors[indexMovableNode].start.x += xDelta / blockSize
+            vectors[indexMovableNode].start.y += yDelta / blockSize
+            vectors[indexMovableNode].end.x += xDelta / blockSize
+            vectors[indexMovableNode].end.y += yDelta / blockSize
+            movableNode.position = CGPoint(
+                x: movableNode.position.x + xDelta,
+                y: movableNode.position.y + yDelta
+            )
+        }
+    }
+
+    private func moveTheCamera(xDelta: CGFloat, yDelta: CGFloat) {
+        camera?.position.x -= xDelta
+        camera?.position.y -= yDelta
+    }
+
     override  func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         movableNode = nil
+        action = nil
     }
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
         movableNode = nil
+        action = nil
     }
 
     private func addGestures() {
@@ -210,7 +294,7 @@ extension VectorsSKScene {
 extension VectorsSKScene {
     private func addCamera() {
         let cameraNode = SKCameraNode()
-        cameraNode.position = cameraPosition
+        cameraNode.position = CGPoint.zero
         scene?.addChild(cameraNode)
         scene?.camera = cameraNode
     }

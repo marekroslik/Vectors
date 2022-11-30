@@ -5,7 +5,7 @@ final class CanvasViewController: UIViewController {
 
     private let vectors = [
         VectorModel(
-            id: 1,
+            id: "1",
             start: CGPoint(
                 x: 0,
                 y: 0
@@ -15,7 +15,7 @@ final class CanvasViewController: UIViewController {
                 y: 1
             )),
         VectorModel(
-            id: 2,
+            id: "2",
             start: CGPoint(
                 x: 2,
                 y: 2
@@ -25,7 +25,7 @@ final class CanvasViewController: UIViewController {
                 y: 3
             )),
         VectorModel(
-            id: 3,
+            id: "3",
             start: CGPoint(
                 x: 4,
                 y: 4
@@ -35,7 +35,7 @@ final class CanvasViewController: UIViewController {
                 y: 5
             )),
         VectorModel(
-            id: 4,
+            id: "4",
             start: CGPoint(
                 x: 6,
                 y: 6
@@ -45,7 +45,7 @@ final class CanvasViewController: UIViewController {
                 y: 7
             )),
         VectorModel(
-            id: 5,
+            id: "5",
             start: CGPoint(
                 x: 8,
                 y: 8

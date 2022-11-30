@@ -1,12 +1,12 @@
 import Foundation
 
 struct VectorModel {
-    let id: Int
-    let start: CGPoint
-    let end: CGPoint
+    let id: String
+    var start: CGPoint
+    var end: CGPoint
 
     init(
-        id: Int,
+        id: String,
         start: CGPoint,
         end: CGPoint
     ) {
