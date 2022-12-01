@@ -12,6 +12,8 @@
 		F9B4981B2934C769008DD0CD /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B4981A2934C769008DD0CD /* CanvasViewController.swift */; };
 		F9B498202934C769008DD0CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9B4981F2934C769008DD0CD /* Assets.xcassets */; };
 		F9B498232934C769008DD0CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9B498212934C769008DD0CD /* LaunchScreen.storyboard */; };
+		F9C6F71D2934DC88002A4D64 /* VectorsSKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C6F71C2934DC88002A4D64 /* VectorsSKScene.swift */; };
+		F9C6F71F29350ADF002A4D64 /* VectorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C6F71E29350ADF002A4D64 /* VectorModel.swift */; };
 		F9E5565A2934D19F00FCFB91 /* Strings+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E556582934D19F00FCFB91 /* Strings+Generated.swift */; };
 		F9E5565B2934D19F00FCFB91 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E556592934D19F00FCFB91 /* Assets.swift */; };
 		F9E556602934D20500FCFB91 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F9E5565F2934D20500FCFB91 /* Localizable.strings */; };
@@ -27,6 +29,8 @@
 		F9B4981F2934C769008DD0CD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F9B498222934C769008DD0CD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F9B498242934C769008DD0CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F9C6F71C2934DC88002A4D64 /* VectorsSKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorsSKScene.swift; sourceTree = "<group>"; };
+		F9C6F71E29350ADF002A4D64 /* VectorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorModel.swift; sourceTree = "<group>"; };
 		F9E556582934D19F00FCFB91 /* Strings+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Strings+Generated.swift"; sourceTree = "<group>"; };
 		F9E556592934D19F00FCFB91 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		F9E5565F2934D20500FCFB91 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 			isa = PBXGroup;
 			children = (
 				F9B4981A2934C769008DD0CD /* CanvasViewController.swift */,
+				F9C6F71C2934DC88002A4D64 /* VectorsSKScene.swift */,
+				F9C6F71E29350ADF002A4D64 /* VectorModel.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -274,8 +280,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				F9B4981B2934C769008DD0CD /* CanvasViewController.swift in Sources */,
+				F9C6F71D2934DC88002A4D64 /* VectorsSKScene.swift in Sources */,
 				F9B498172934C769008DD0CD /* AppDelegate.swift in Sources */,
 				F9E5565B2934D19F00FCFB91 /* Assets.swift in Sources */,
+				F9C6F71F29350ADF002A4D64 /* VectorModel.swift in Sources */,
 				F9E5565A2934D19F00FCFB91 /* Strings+Generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
