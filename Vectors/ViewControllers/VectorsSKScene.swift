@@ -228,8 +228,26 @@ extension VectorsSKScene {
     }
 
     private func moveTheCamera(xDelta: CGFloat, yDelta: CGFloat) {
-        camera?.position.x -= xDelta
-        camera?.position.y -= yDelta
+        guard
+            let positionX = camera?.position.x,
+            let positionY = camera?.position.y
+        else { return }
+
+        let newPositionX = positionX - xDelta
+        let newPositionY = positionY - yDelta
+
+        let limitationConstX = innerSize - frame.width / 2
+        let limitationConstY = innerSize - frame.height / 2
+
+        let limitationRangeX = (-limitationConstX...limitationConstX)
+        let limitationRangeY = (-limitationConstY...limitationConstY)
+
+        if limitationRangeX.contains(newPositionX) {
+            camera?.position.x = newPositionX
+        }
+        if limitationRangeY.contains(newPositionY) {
+            camera?.position.y = newPositionY
+        }
     }
 
     override  func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
