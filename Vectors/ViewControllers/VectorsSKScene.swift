@@ -1,7 +1,7 @@
 import SpriteKit
 
 final class VectorsSKScene: SKScene {
-    private var vectors: [VectorModel]
+    var vectors = [VectorModel]()
 
     private var movableNode: SKNode?
     private var touchType: TouchTypes?
@@ -19,36 +19,19 @@ final class VectorsSKScene: SKScene {
     override func didMove(to view: SKView) {
         self.backgroundColor = .black
         drawGrid()
-        redrawVectors()
         addCamera()
         addGestures()
-    }
 
-    init(
-        vectors: [VectorModel],
-        size: CGSize
-    ) {
-        self.vectors = vectors
-        super.init(size: size)
-    }
-
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 
 // MARK: - Work with vectors
 extension VectorsSKScene {
-    private func drawVector(
+    func drawVector(
         start: CGPoint,
         end: CGPoint,
         id: String,
-        color: UIColor = UIColor(
-            red: .random(in: 0.3...1),
-            green: .random(in: 0.3...1),
-            blue: .random(in: 0.3...1),
-            alpha: 1.0
-        ),
+        color: UIColor,
         arrowAngle: CGFloat = .pi / 6
     ) {
         let pointerLineLength = blockSize / 5
@@ -82,9 +65,10 @@ extension VectorsSKScene {
         self.addChild(line)
     }
 
-    private func redrawVectors() {
-        for vector in vectors {
-            drawVector(start: vector.start, end: vector.end, id: String(vector.id))
+    func redrawVectors(model: [VectorModel]) {
+        self.vectors = model
+        for vector in model {
+            drawVector(start: vector.start, end: vector.end, id: String(vector.id), color: vector.color)
         }
     }
 
@@ -101,8 +85,8 @@ extension VectorsSKScene {
         guard
             let touch = touches.first?.location(in: self)
         else {
-            print("Touch is nill")
-            return }
+            return
+        }
         // Сheck if touch is in vector
         guard
             let vector = vectors.first(where: {
