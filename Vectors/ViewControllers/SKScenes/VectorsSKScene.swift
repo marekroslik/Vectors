@@ -65,6 +65,10 @@ extension VectorsSKScene {
         self.addChild(line)
     }
 
+    func deleteVector(id: String) {
+        self.childNode(withName: id)?.removeFromParent()
+    }
+
     func redrawVectors(model: [VectorModel]) {
         self.vectors = model
         for vector in model {

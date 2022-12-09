@@ -11,6 +11,7 @@ final class VectorCollectionCell: UICollectionViewCell {
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.3
         label.textAlignment = .center
+        label.textColor = .black
         return label
     }()
 
@@ -19,12 +20,13 @@ final class VectorCollectionCell: UICollectionViewCell {
         label.adjustsFontSizeToFitWidth = true
         label.minimumScaleFactor = 0.3
         label.textAlignment = .center
+        label.textColor = .black
         return label
     }()
 
     func prepareCell(start: CGPoint, end: CGPoint, color: UIColor) {
-        startCoordinate.text = "(X₁ = \(start.x), Y₁ = \(start.y))"
-        endCoordinate.text = "(X₂ = \(end.x), Y₂ = \(end.y))"
+        startCoordinate.text = "(\(String(format: "%.2f", start.x)), \((String(format: "%.2f", start.y))))"
+        endCoordinate.text = "(\(String(format: "%.2f", end.x)), \((String(format: "%.2f", start.x))))"
         self.backgroundColor = color
     }
 

@@ -15,6 +15,10 @@
 		F96956EE29409C0700A16CD6 /* VectorProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96956ED29409C0700A16CD6 /* VectorProviderProtocol.swift */; };
 		F96956F02940AB5B00A16CD6 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96956EF2940AB5B00A16CD6 /* MenuView.swift */; };
 		F96956F22940AC7F00A16CD6 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96956F12940AC7F00A16CD6 /* BaseButton.swift */; };
+		F9809C902943771F00D422A1 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9809C8F2943771F00D422A1 /* AddViewController.swift */; };
+		F9809C922943905A00D422A1 /* BaseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9809C912943905A00D422A1 /* BaseTextField.swift */; };
+		F9809C942943910200D422A1 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9809C932943910200D422A1 /* AddView.swift */; };
+		F9AD2AFB2942085900895983 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AD2AFA2942085900895983 /* UIColor.swift */; };
 		F9B498172934C769008DD0CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B498162934C769008DD0CD /* AppDelegate.swift */; };
 		F9B4981B2934C769008DD0CD /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B4981A2934C769008DD0CD /* CanvasViewController.swift */; };
 		F9B498202934C769008DD0CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9B4981F2934C769008DD0CD /* Assets.xcassets */; };
@@ -39,6 +43,10 @@
 		F96956ED29409C0700A16CD6 /* VectorProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorProviderProtocol.swift; sourceTree = "<group>"; };
 		F96956EF2940AB5B00A16CD6 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
 		F96956F12940AC7F00A16CD6 /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
+		F9809C8F2943771F00D422A1 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		F9809C912943905A00D422A1 /* BaseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextField.swift; sourceTree = "<group>"; };
+		F9809C932943910200D422A1 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
+		F9AD2AFA2942085900895983 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		F9B498132934C769008DD0CD /* Vectors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vectors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9B498162934C769008DD0CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9B4981A2934C769008DD0CD /* CanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewController.swift; sourceTree = "<group>"; };
@@ -119,10 +127,19 @@
 		F96956F32940AC8300A16CD6 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				F9809C912943905A00D422A1 /* BaseTextField.swift */,
 				F96956F12940AC7F00A16CD6 /* BaseButton.swift */,
 				F913A2362940C76C008370B5 /* VectorCollectionCell.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		F9809C8E29433BF800D422A1 /* SKScenes */ = {
+			isa = PBXGroup;
+			children = (
+				F9C6F71C2934DC88002A4D64 /* VectorsSKScene.swift */,
+			);
+			path = SKScenes;
 			sourceTree = "<group>";
 		};
 		F9B4980A2934C768008DD0CD = {
@@ -147,11 +164,11 @@
 			isa = PBXGroup;
 			children = (
 				F96956EA29409BC300A16CD6 /* Providers */,
-				F9B498162934C769008DD0CD /* AppDelegate.swift */,
 				F9F27F7C293E36BC0027421C /* Views */,
 				F9B4982B2934CC1A008DD0CD /* ViewControllers */,
 				F913A2382940EF0E008370B5 /* ViewModels */,
 				F96956EB29409BE500A16CD6 /* Models */,
+				F9B498162934C769008DD0CD /* AppDelegate.swift */,
 				F96956F32940AC8300A16CD6 /* Components */,
 				F9DC47592938D0CA00F94A29 /* Extensions */,
 				F96956EC29409BFA00A16CD6 /* Protocols */,
@@ -176,7 +193,8 @@
 			isa = PBXGroup;
 			children = (
 				F9B4981A2934C769008DD0CD /* CanvasViewController.swift */,
-				F9C6F71C2934DC88002A4D64 /* VectorsSKScene.swift */,
+				F9809C8F2943771F00D422A1 /* AddViewController.swift */,
+				F9809C8E29433BF800D422A1 /* SKScenes */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -185,6 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				F9DC475A2938D15C00F94A29 /* CGPoint.swift */,
+				F9AD2AFA2942085900895983 /* UIColor.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -203,6 +222,7 @@
 			children = (
 				F9F27F7A293E36B80027421C /* CanvasView.swift */,
 				F96956EF2940AB5B00A16CD6 /* MenuView.swift */,
+				F9809C932943910200D422A1 /* AddView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -367,11 +387,15 @@
 				F9C6F71D2934DC88002A4D64 /* VectorsSKScene.swift in Sources */,
 				F9F27F7B293E36B80027421C /* CanvasView.swift in Sources */,
 				F9DC475B2938D15C00F94A29 /* CGPoint.swift in Sources */,
+				F9AD2AFB2942085900895983 /* UIColor.swift in Sources */,
 				F9B498172934C769008DD0CD /* AppDelegate.swift in Sources */,
+				F9809C902943771F00D422A1 /* AddViewController.swift in Sources */,
 				F9E5565B2934D19F00FCFB91 /* Assets.swift in Sources */,
 				F913A2372940C76C008370B5 /* VectorCollectionCell.swift in Sources */,
+				F9809C942943910200D422A1 /* AddView.swift in Sources */,
 				F96956F02940AB5B00A16CD6 /* MenuView.swift in Sources */,
 				F96956EE29409C0700A16CD6 /* VectorProviderProtocol.swift in Sources */,
+				F9809C922943905A00D422A1 /* BaseTextField.swift in Sources */,
 				F9C6F71F29350ADF002A4D64 /* VectorModel.swift in Sources */,
 				F913A23C2940F762008370B5 /* ViewModelProtocol.swift in Sources */,
 				F96956F22940AC7F00A16CD6 /* BaseButton.swift in Sources */,

@@ -1,6 +1,6 @@
 import UIKit
 
-class VectorModel {
+struct VectorModel {
     let id: String
     var start: CGPoint
     var end: CGPoint
@@ -14,12 +14,7 @@ class VectorModel {
         self.id = id
         self.start = start
         self.end = end
-        self.color = UIColor(
-            red: .random(in: 0.3...1),
-            green: .random(in: 0.3...1),
-            blue: .random(in: 0.3...1),
-            alpha: 1.0
-        )
+        self.color = UIColor.random()
     }
 }
 
@@ -42,7 +37,7 @@ extension VectorModel {
     }
 }
 
-extension VectorModel: Hashable {
+extension VectorModel: Hashable, Identifiable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(id)
     }

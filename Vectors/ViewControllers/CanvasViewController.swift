@@ -14,26 +14,42 @@ final class CanvasViewController: UIViewController {
     private let bag = DisposeBag()
     private let getAllVectors = PublishRelay<Void>()
     private let editVector = PublishRelay<VectorModel>()
+    private let deleteVector = PublishRelay<VectorModel>()
+    private let addVector = PublishRelay<VectorModel>()
 
     override func viewDidLoad() {
         addSubviews()
         setupConstraints()
         setupScene()
-        menuView.theAddButtonCompletionHandler = {
-            print("ADD PRESS")
+        menuView.theAddButtonCompletionHandler = { [weak self] in
+            guard #available(iOS 16.0, *) else { return }
+            let bottomSheetViewController = AddViewController()
+            if let sheetController = bottomSheetViewController.presentationController
+                as? UISheetPresentationController {
+                sheetController.detents = [
+                    .custom { _ in
+                    guard let self else { return nil }
+                    return self.view.bounds.height / 3 - self.view.safeAreaInsets.bottom
+                } ]
+                sheetController.prefersGrabberVisible = true
+            }
+            bottomSheetViewController.addVector = { vector in
+                print(vector)
+                self?.deleteVector.accept(vector)
+            }
+            self?.present(bottomSheetViewController, animated: true)
         }
         menuView.vectorsCollectionDelegate = self
         bindViewModel()
         getAllVectors.accept(())
-        let timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: false) { [weak self] _ in
-            self?.editVector.accept(VectorModel(id: "1", start: CGPoint(x: 10, y: 10), end: CGPoint(x: 1, y: 1)))
-        }
     }
 
     private func bindViewModel() {
         let inputs = CanvasViewModel.Input(
             showAllVectors: getAllVectors.asObservable(),
-            editVector: editVector.asObservable()
+            editVector: editVector.asObservable(),
+            deleteVector: deleteVector.asObservable(),
+            addVector: addVector.asObservable()
         )
         let outputs = viewModel.transform(input: inputs)
         outputs.showAllVectors
@@ -46,7 +62,23 @@ final class CanvasViewController: UIViewController {
 
         outputs.editVector
             .do { [weak self] model in
-                self?.updateSnapshot(vector: model)
+                self?.updateSnapshotWith(vector: model)
+                self?.scene?.drawVector(start: model.start, end: model.end, id: model.id, color: model.color)
+            }
+            .drive()
+            .disposed(by: bag)
+
+        outputs.deleteVector
+            .do { [weak self] model in
+                self?.deleteSnapshotWith(vector: model)
+                self?.scene?.deleteVector(id: model.id)
+            }
+            .drive()
+            .disposed(by: bag)
+
+        outputs.addVector
+            .do { [weak self] model in
+                self?.addSnapshotWith(vector: model)
                 self?.scene?.drawVector(start: model.start, end: model.end, id: model.id, color: model.color)
             }
             .drive()
@@ -97,16 +129,28 @@ extension CanvasViewController {
         return dataSource
     }
 
-    func updateSnapshot(vector: VectorModel) {
-        var newSnapshot = dataSource.snapshot()
-        newSnapshot.reloadItems([vector])
-        dataSource.apply(newSnapshot, animatingDifferences: true)
+    func addSnapshotWith(vector: VectorModel, animatingDifferences: Bool = false) {
+        var snapshot = dataSource.snapshot()
+        snapshot.appendItems([vector])
+        dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
     }
 
-    func applySnapshot(model: [VectorModel], animatingDifferences: Bool = true) {
+    func updateSnapshotWith(vector: VectorModel, animatingDifferences: Bool = false) {
+        var snapshot = dataSource.snapshot()
+        snapshot.reloadItems([vector])
+        dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
+    }
+
+    func deleteSnapshotWith(vector: VectorModel, animatingDifferences: Bool = true) {
+        var snapshot = dataSource.snapshot()
+        snapshot.deleteItems([vector])
+        dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
+    }
+
+    func applySnapshot(model: [VectorModel], animatingDifferences: Bool = false) {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
-        snapshot.appendItems(model)
+        snapshot.appendItems(model, toSection: .main)
         dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
     }
 }
