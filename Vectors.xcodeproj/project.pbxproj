@@ -166,6 +166,7 @@
 				F96956EA29409BC300A16CD6 /* Providers */,
 				F9F27F7C293E36BC0027421C /* Views */,
 				F9B4982B2934CC1A008DD0CD /* ViewControllers */,
+				F9809C8E29433BF800D422A1 /* SKScenes */,
 				F913A2382940EF0E008370B5 /* ViewModels */,
 				F96956EB29409BE500A16CD6 /* Models */,
 				F9B498162934C769008DD0CD /* AppDelegate.swift */,
@@ -194,7 +195,6 @@
 			children = (
 				F9B4981A2934C769008DD0CD /* CanvasViewController.swift */,
 				F9809C8F2943771F00D422A1 /* AddViewController.swift */,
-				F9809C8E29433BF800D422A1 /* SKScenes */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";

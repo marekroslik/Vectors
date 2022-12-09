@@ -26,7 +26,7 @@ final class VectorCollectionCell: UICollectionViewCell {
 
     func prepareCell(start: CGPoint, end: CGPoint, color: UIColor) {
         startCoordinate.text = "(\(String(format: "%.2f", start.x)), \((String(format: "%.2f", start.y))))"
-        endCoordinate.text = "(\(String(format: "%.2f", end.x)), \((String(format: "%.2f", start.x))))"
+        endCoordinate.text = "(\(String(format: "%.2f", end.x)), \((String(format: "%.2f", end.y))))"
         self.backgroundColor = color
     }
 

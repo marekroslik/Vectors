@@ -10,6 +10,7 @@ final class BaseTextField: UITextField {
         layer.borderWidth = 1
         textAlignment = .center
         keyboardType = UIKeyboardType.decimalPad
+        tintColor = .white
         placeholder = title
     }
 

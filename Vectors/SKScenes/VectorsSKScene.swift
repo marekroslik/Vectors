@@ -65,6 +65,11 @@ extension VectorsSKScene {
         self.addChild(line)
     }
 
+    func addVector(vector: VectorModel) {
+        self.vectors.append(vector)
+        drawVector(start: vector.start, end: vector.end, id: vector.id, color: vector.color)
+    }
+
     func deleteVector(id: String) {
         self.childNode(withName: id)?.removeFromParent()
     }

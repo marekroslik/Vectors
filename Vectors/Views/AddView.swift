@@ -1,8 +1,9 @@
 import SnapKit
 
 final class AddView: UIView {
+    typealias Vector = (start: CGPoint, end: CGPoint)
 
-    var acceptButtonCompletionHandler: ((VectorModel) -> Void)?
+    var acceptButtonCompletionHandler: ((Vector) -> Void)?
 
     private let x1Coordinate = BaseTextField(withTitle: "X₁")
 
@@ -36,19 +37,28 @@ final class AddView: UIView {
             let y1Value = Double(y1text),
             let y2text = y2Coordinate.text,
             let y2Value = Double(y2text)
-        else { return }
-        let vector = VectorModel(
-            id: UUID().uuidString,
-            start: CGPoint(
-                x: x1Value,
-                y: y1Value
-            ),
-            end: CGPoint(
-                x: x2Value,
-                y: y2Value
-            )
+        else {
+            acceptButton.playDenyAnimation()
+            return
+        }
+        let start = CGPoint(
+            x: x1Value,
+            y: y1Value
         )
-        self.acceptButtonCompletionHandler?(vector)
+        let end = CGPoint(
+            x: x2Value,
+            y: y2Value
+        )
+        clearTextFields()
+        self.acceptButtonCompletionHandler?((start: start, end: end))
+    }
+
+    private func clearTextFields() {
+        x1Coordinate.text = nil
+        y1Coordinate.text = nil
+        x2Coordinate.text = nil
+        y2Coordinate.text = nil
+        x1Coordinate.becomeFirstResponder()
     }
 
     private func addSubviews() {

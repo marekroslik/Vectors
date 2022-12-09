@@ -13,14 +13,10 @@ class AddViewController: UIViewController {
         addSubviews()
         setupConstraints()
         addView.acceptButtonCompletionHandler = { [weak self] vector in
-            self?.addVector?(vector)
+            let start = vector.start
+            let end = vector.end
+            self?.addVector?(VectorModel(id: UUID().uuidString, start: start, end: end))
         }
-
-    }
-
-    @objc private func addButtonTaped() {
-        let vector = VectorModel(id: "3", start: .zero, end: .zero)
-        self.addVector?(vector)
     }
 
     private func addSubviews() {

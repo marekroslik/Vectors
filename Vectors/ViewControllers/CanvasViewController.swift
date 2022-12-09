@@ -21,6 +21,7 @@ final class CanvasViewController: UIViewController {
         addSubviews()
         setupConstraints()
         setupScene()
+        menuView.vectorsCollectionDelegate = self
         menuView.theAddButtonCompletionHandler = { [weak self] in
             guard #available(iOS 16.0, *) else { return }
             let bottomSheetViewController = AddViewController()
@@ -34,12 +35,10 @@ final class CanvasViewController: UIViewController {
                 sheetController.prefersGrabberVisible = true
             }
             bottomSheetViewController.addVector = { vector in
-                print(vector)
-                self?.deleteVector.accept(vector)
+                self?.addVector.accept(vector)
             }
             self?.present(bottomSheetViewController, animated: true)
         }
-        menuView.vectorsCollectionDelegate = self
         bindViewModel()
         getAllVectors.accept(())
     }
@@ -79,7 +78,7 @@ final class CanvasViewController: UIViewController {
         outputs.addVector
             .do { [weak self] model in
                 self?.addSnapshotWith(vector: model)
-                self?.scene?.drawVector(start: model.start, end: model.end, id: model.id, color: model.color)
+                self?.scene?.addVector(vector: model)
             }
             .drive()
             .disposed(by: bag)
@@ -131,6 +130,7 @@ extension CanvasViewController {
 
     func addSnapshotWith(vector: VectorModel, animatingDifferences: Bool = false) {
         var snapshot = dataSource.snapshot()
+        print(vector)
         snapshot.appendItems([vector])
         dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
     }

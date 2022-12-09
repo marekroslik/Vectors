@@ -41,7 +41,7 @@ final class CanvasViewModel: RXViewModelProtocol {
             }
             .asDriver(onErrorJustReturn: VectorModel(id: "1", start: CGPoint(x: 0, y: 0), end: CGPoint(x: 0, y: 0)))
 
-        let addVector = input.deleteVector
+        let addVector = input.addVector
             .do { [vectorProvider] model in
                 vectorProvider.save(vector: model)
             }
