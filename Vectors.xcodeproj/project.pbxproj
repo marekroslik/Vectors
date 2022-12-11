@@ -8,21 +8,47 @@
 
 /* Begin PBXBuildFile section */
 		A0BCACFD2B060542733FA8A2 /* Pods_Vectors.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F5EDC1247DA97E0DB1FE9641 /* Pods_Vectors.framework */; };
+		F913A2372940C76C008370B5 /* VectorCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F913A2362940C76C008370B5 /* VectorCollectionCell.swift */; };
+		F913A23A2940EF2C008370B5 /* CanvasViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F913A2392940EF2C008370B5 /* CanvasViewModel.swift */; };
+		F913A23C2940F762008370B5 /* ViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F913A23B2940F762008370B5 /* ViewModelProtocol.swift */; };
+		F9312F302944A23A003B2C89 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9312F2F2944A23A003B2C89 /* Observable.swift */; };
+		F96956E929409BAC00A16CD6 /* MockVectorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96956E829409BAC00A16CD6 /* MockVectorProvider.swift */; };
+		F96956EE29409C0700A16CD6 /* VectorProviderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96956ED29409C0700A16CD6 /* VectorProviderProtocol.swift */; };
+		F96956F02940AB5B00A16CD6 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96956EF2940AB5B00A16CD6 /* MenuView.swift */; };
+		F96956F22940AC7F00A16CD6 /* BaseButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F96956F12940AC7F00A16CD6 /* BaseButton.swift */; };
+		F9809C902943771F00D422A1 /* AddViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9809C8F2943771F00D422A1 /* AddViewController.swift */; };
+		F9809C922943905A00D422A1 /* BaseTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9809C912943905A00D422A1 /* BaseTextField.swift */; };
+		F9809C942943910200D422A1 /* AddView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9809C932943910200D422A1 /* AddView.swift */; };
+		F9AD2AFB2942085900895983 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9AD2AFA2942085900895983 /* UIColor.swift */; };
 		F9B498172934C769008DD0CD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B498162934C769008DD0CD /* AppDelegate.swift */; };
 		F9B4981B2934C769008DD0CD /* CanvasViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9B4981A2934C769008DD0CD /* CanvasViewController.swift */; };
 		F9B498202934C769008DD0CD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F9B4981F2934C769008DD0CD /* Assets.xcassets */; };
 		F9B498232934C769008DD0CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9B498212934C769008DD0CD /* LaunchScreen.storyboard */; };
 		F9C6F71D2934DC88002A4D64 /* VectorsSKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C6F71C2934DC88002A4D64 /* VectorsSKScene.swift */; };
 		F9C6F71F29350ADF002A4D64 /* VectorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C6F71E29350ADF002A4D64 /* VectorModel.swift */; };
+		F9DC475B2938D15C00F94A29 /* CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DC475A2938D15C00F94A29 /* CGPoint.swift */; };
 		F9E5565A2934D19F00FCFB91 /* Strings+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E556582934D19F00FCFB91 /* Strings+Generated.swift */; };
 		F9E5565B2934D19F00FCFB91 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E556592934D19F00FCFB91 /* Assets.swift */; };
 		F9E556602934D20500FCFB91 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = F9E5565F2934D20500FCFB91 /* Localizable.strings */; };
+		F9F27F7B293E36B80027421C /* CanvasView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9F27F7A293E36B80027421C /* CanvasView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		33AFCA071E3D4A324D4E46FD /* Pods-Vectors.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vectors.debug.xcconfig"; path = "Target Support Files/Pods-Vectors/Pods-Vectors.debug.xcconfig"; sourceTree = "<group>"; };
 		342AED9584E4184FB574E608 /* Pods-Vectors.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Vectors.release.xcconfig"; path = "Target Support Files/Pods-Vectors/Pods-Vectors.release.xcconfig"; sourceTree = "<group>"; };
 		F5EDC1247DA97E0DB1FE9641 /* Pods_Vectors.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Vectors.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		F913A2362940C76C008370B5 /* VectorCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorCollectionCell.swift; sourceTree = "<group>"; };
+		F913A2392940EF2C008370B5 /* CanvasViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewModel.swift; sourceTree = "<group>"; };
+		F913A23B2940F762008370B5 /* ViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModelProtocol.swift; sourceTree = "<group>"; };
+		F9312F2F2944A23A003B2C89 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		F96956E829409BAC00A16CD6 /* MockVectorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockVectorProvider.swift; sourceTree = "<group>"; };
+		F96956ED29409C0700A16CD6 /* VectorProviderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorProviderProtocol.swift; sourceTree = "<group>"; };
+		F96956EF2940AB5B00A16CD6 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		F96956F12940AC7F00A16CD6 /* BaseButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseButton.swift; sourceTree = "<group>"; };
+		F9809C8F2943771F00D422A1 /* AddViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddViewController.swift; sourceTree = "<group>"; };
+		F9809C912943905A00D422A1 /* BaseTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTextField.swift; sourceTree = "<group>"; };
+		F9809C932943910200D422A1 /* AddView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddView.swift; sourceTree = "<group>"; };
+		F9AD2AFA2942085900895983 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		F9B498132934C769008DD0CD /* Vectors.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Vectors.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F9B498162934C769008DD0CD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F9B4981A2934C769008DD0CD /* CanvasViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasViewController.swift; sourceTree = "<group>"; };
@@ -31,9 +57,11 @@
 		F9B498242934C769008DD0CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9C6F71C2934DC88002A4D64 /* VectorsSKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorsSKScene.swift; sourceTree = "<group>"; };
 		F9C6F71E29350ADF002A4D64 /* VectorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorModel.swift; sourceTree = "<group>"; };
+		F9DC475A2938D15C00F94A29 /* CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPoint.swift; sourceTree = "<group>"; };
 		F9E556582934D19F00FCFB91 /* Strings+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Strings+Generated.swift"; sourceTree = "<group>"; };
 		F9E556592934D19F00FCFB91 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		F9E5565F2934D20500FCFB91 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		F9F27F7A293E36B80027421C /* CanvasView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,6 +93,57 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		F913A2382940EF0E008370B5 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				F913A2392940EF2C008370B5 /* CanvasViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		F96956EA29409BC300A16CD6 /* Providers */ = {
+			isa = PBXGroup;
+			children = (
+				F96956E829409BAC00A16CD6 /* MockVectorProvider.swift */,
+			);
+			path = Providers;
+			sourceTree = "<group>";
+		};
+		F96956EB29409BE500A16CD6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				F9C6F71E29350ADF002A4D64 /* VectorModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		F96956EC29409BFA00A16CD6 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				F96956ED29409C0700A16CD6 /* VectorProviderProtocol.swift */,
+				F913A23B2940F762008370B5 /* ViewModelProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		F96956F32940AC8300A16CD6 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				F9809C912943905A00D422A1 /* BaseTextField.swift */,
+				F96956F12940AC7F00A16CD6 /* BaseButton.swift */,
+				F913A2362940C76C008370B5 /* VectorCollectionCell.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		F9809C8E29433BF800D422A1 /* SKScenes */ = {
+			isa = PBXGroup;
+			children = (
+				F9C6F71C2934DC88002A4D64 /* VectorsSKScene.swift */,
+			);
+			path = SKScenes;
+			sourceTree = "<group>";
+		};
 		F9B4980A2934C768008DD0CD = {
 			isa = PBXGroup;
 			children = (
@@ -86,8 +165,16 @@
 		F9B498152934C769008DD0CD /* Vectors */ = {
 			isa = PBXGroup;
 			children = (
-				F9B498162934C769008DD0CD /* AppDelegate.swift */,
+				F96956EA29409BC300A16CD6 /* Providers */,
+				F9F27F7C293E36BC0027421C /* Views */,
 				F9B4982B2934CC1A008DD0CD /* ViewControllers */,
+				F9809C8E29433BF800D422A1 /* SKScenes */,
+				F913A2382940EF0E008370B5 /* ViewModels */,
+				F96956EB29409BE500A16CD6 /* Models */,
+				F9B498162934C769008DD0CD /* AppDelegate.swift */,
+				F96956F32940AC8300A16CD6 /* Components */,
+				F9DC47592938D0CA00F94A29 /* Extensions */,
+				F96956EC29409BFA00A16CD6 /* Protocols */,
 				F9B4982A2934CBB4008DD0CD /* Sources */,
 			);
 			path = Vectors;
@@ -109,10 +196,19 @@
 			isa = PBXGroup;
 			children = (
 				F9B4981A2934C769008DD0CD /* CanvasViewController.swift */,
-				F9C6F71C2934DC88002A4D64 /* VectorsSKScene.swift */,
-				F9C6F71E29350ADF002A4D64 /* VectorModel.swift */,
+				F9809C8F2943771F00D422A1 /* AddViewController.swift */,
 			);
 			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		F9DC47592938D0CA00F94A29 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F9DC475A2938D15C00F94A29 /* CGPoint.swift */,
+				F9AD2AFA2942085900895983 /* UIColor.swift */,
+				F9312F2F2944A23A003B2C89 /* Observable.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		F9E556572934D18800FCFB91 /* Generated */ = {
@@ -122,6 +218,16 @@
 				F9E556582934D19F00FCFB91 /* Strings+Generated.swift */,
 			);
 			path = Generated;
+			sourceTree = "<group>";
+		};
+		F9F27F7C293E36BC0027421C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				F9F27F7A293E36B80027421C /* CanvasView.swift */,
+				F96956EF2940AB5B00A16CD6 /* MenuView.swift */,
+				F9809C932943910200D422A1 /* AddView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,11 +385,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F96956E929409BAC00A16CD6 /* MockVectorProvider.swift in Sources */,
 				F9B4981B2934C769008DD0CD /* CanvasViewController.swift in Sources */,
 				F9C6F71D2934DC88002A4D64 /* VectorsSKScene.swift in Sources */,
+				F9F27F7B293E36B80027421C /* CanvasView.swift in Sources */,
+				F9DC475B2938D15C00F94A29 /* CGPoint.swift in Sources */,
+				F9AD2AFB2942085900895983 /* UIColor.swift in Sources */,
 				F9B498172934C769008DD0CD /* AppDelegate.swift in Sources */,
+				F9809C902943771F00D422A1 /* AddViewController.swift in Sources */,
 				F9E5565B2934D19F00FCFB91 /* Assets.swift in Sources */,
+				F913A2372940C76C008370B5 /* VectorCollectionCell.swift in Sources */,
+				F9809C942943910200D422A1 /* AddView.swift in Sources */,
+				F96956F02940AB5B00A16CD6 /* MenuView.swift in Sources */,
+				F96956EE29409C0700A16CD6 /* VectorProviderProtocol.swift in Sources */,
+				F9809C922943905A00D422A1 /* BaseTextField.swift in Sources */,
 				F9C6F71F29350ADF002A4D64 /* VectorModel.swift in Sources */,
+				F913A23C2940F762008370B5 /* ViewModelProtocol.swift in Sources */,
+				F9312F302944A23A003B2C89 /* Observable.swift in Sources */,
+				F96956F22940AC7F00A16CD6 /* BaseButton.swift in Sources */,
+				F913A23A2940EF2C008370B5 /* CanvasViewModel.swift in Sources */,
 				F9E5565A2934D19F00FCFB91 /* Strings+Generated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
