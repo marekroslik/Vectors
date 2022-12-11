@@ -79,14 +79,14 @@ extension VectorsSKScene {
             }
     }
 
-    private func moveTheCamera(xDelta: CGFloat, yDelta: CGFloat) {
+    func moveTheCamera(xDelta: CGFloat, yDelta: CGFloat) {
         guard
             let positionX = camera?.position.x,
             let positionY = camera?.position.y
         else { return }
 
-        let newPositionX = positionX - xDelta
-        let newPositionY = positionY - yDelta
+        let newPositionX = positionX - xDelta * blockSize
+        let newPositionY = positionY - yDelta * blockSize
 
         let limitationConstX = innerSize - frame.width / 2
         let limitationConstY = innerSize - frame.height / 2

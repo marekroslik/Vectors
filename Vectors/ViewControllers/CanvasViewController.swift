@@ -33,7 +33,9 @@ final class CanvasViewController: UIViewController {
             addVector: addVector.asObservable(),
             gestureRecognizer: scene!.panGestureObserver()
         )
+
         let outputs = viewModel.transform(input: inputs)
+
         outputs.showAllVectors
             .do { [weak self] model in
                 self?.applySnapshot(model: model)
@@ -63,6 +65,14 @@ final class CanvasViewController: UIViewController {
         outputs.addVector
             .do { [weak self] model in
                 self?.addSnapshotWith(vector: model)
+                self?.scene?.draw(vector: model)
+            }
+            .drive()
+            .disposed(by: bag)
+
+        outputs.moveCameraWithDelta
+            .do { [weak self] point in
+                self?.scene?.moveTheCamera(xDelta: point.x, yDelta: point.y)
             }
             .drive()
             .disposed(by: bag)
@@ -120,7 +130,7 @@ extension CanvasViewController {
         case main
     }
 
-    func makeDataSource() -> DataSource {
+    private func makeDataSource() -> DataSource {
         let dataSource = DataSource(
             collectionView: menuView.vectorsCollection
         ) { (collectionView, indexPath, model) -> UICollectionViewCell? in
@@ -133,26 +143,25 @@ extension CanvasViewController {
         return dataSource
     }
 
-    func addSnapshotWith(vector: VectorModel, animatingDifferences: Bool = false) {
+    private func addSnapshotWith(vector: VectorModel, animatingDifferences: Bool = false) {
         var snapshot = dataSource.snapshot()
-        print(vector)
         snapshot.appendItems([vector])
         dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
     }
 
-    func updateSnapshotWith(vector: VectorModel, animatingDifferences: Bool = false) {
+    private func updateSnapshotWith(vector: VectorModel, animatingDifferences: Bool = false) {
         var snapshot = dataSource.snapshot()
         snapshot.reloadItems([vector])
         dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
     }
 
-    func deleteSnapshotWith(vector: VectorModel, animatingDifferences: Bool = true) {
+    private func deleteSnapshotWith(vector: VectorModel, animatingDifferences: Bool = true) {
         var snapshot = dataSource.snapshot()
         snapshot.deleteItems([vector])
         dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
     }
 
-    func applySnapshot(model: [VectorModel], animatingDifferences: Bool = false) {
+    private func applySnapshot(model: [VectorModel], animatingDifferences: Bool = false) {
         var snapshot = Snapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(model, toSection: .main)

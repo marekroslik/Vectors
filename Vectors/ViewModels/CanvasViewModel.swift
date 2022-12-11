@@ -16,13 +16,16 @@ final class CanvasViewModel: RXViewModelProtocol {
         let editVector: Driver<VectorModel>
         let deleteVector: Driver<VectorModel>
         let addVector: Driver<VectorModel>
+        let moveCameraWithDelta: Driver<CGPoint>
     }
 
     private let vectorProvider: VectorProviderProtocol
 
     private var movableVector: VectorModel?
     private var touchType: VectorModel.Touch?
-    private var firstGestureCoordinates: CGPoint?
+    private var previousGestureCoordinate: CGPoint?
+
+    private let moveCamera = PublishRelay<CGPoint>()
 
     init(vectorProvider: VectorProviderProtocol) {
         self.vectorProvider = vectorProvider
@@ -34,7 +37,7 @@ final class CanvasViewModel: RXViewModelProtocol {
             .flatMap { [weak self] point, state -> Observable<VectorModel> in
                 switch state {
                 case .began:
-                    self?.firstGestureCoordinates = point
+                    self?.previousGestureCoordinate = point
                     guard
                         let vector = self?.vectorProvider.getAllVectors().first(where: { vector in
                             vector.whereIsTouchFor(point: point) != .none
@@ -43,22 +46,32 @@ final class CanvasViewModel: RXViewModelProtocol {
                     self?.touchType = vector.whereIsTouchFor(point: point)
                     return Observable.never()
                 case .changed:
+                    guard
+                        var newVector = self?.movableVector else {
+                        guard
+                            let firstX = self?.previousGestureCoordinate?.x,
+                            let firstY = self?.previousGestureCoordinate?.y
+                        else {
+                            return Observable.never()
+                        }
+                        let deltaX = point.x - firstX
+                        let deltaY = point.y - firstY
+                        self?.moveCamera.accept(CGPoint(x: deltaX, y: deltaY))
+                        return Observable.never()
+                    }
                     switch self?.touchType {
                     case .start:
-                        guard var newVector = self?.movableVector else { return Observable.never() }
                         newVector.start = point
                         self?.movableVector?.start = point
                         return Observable.just(newVector)
                     case .end:
-                        guard var newVector = self?.movableVector else { return Observable.never() }
                         newVector.end = point
                         self?.movableVector?.end = point
                         return Observable.just(newVector)
                     case .body:
                         guard
-                            var newVector = self?.movableVector,
-                            let firstX = self?.firstGestureCoordinates?.x,
-                            let firstY = self?.firstGestureCoordinates?.y
+                            let firstX = self?.previousGestureCoordinate?.x,
+                            let firstY = self?.previousGestureCoordinate?.y
                         else {
                             return Observable.never()
                         }
@@ -70,21 +83,21 @@ final class CanvasViewModel: RXViewModelProtocol {
                         newVector.end.y += deltaY
                         self?.movableVector?.start = newVector.start
                         self?.movableVector?.end = newVector.end
-                        self?.firstGestureCoordinates = point
+                        self?.previousGestureCoordinate = point
                         return Observable.just(newVector)
                     default: return Observable.never()
                     }
                 case .ended:
                     guard let newVector = self?.movableVector else { return Observable.never() }
                     self?.vectorProvider.update(vector: newVector)
-                    self?.firstGestureCoordinates = nil
+                    self?.previousGestureCoordinate = nil
                     self?.movableVector = nil
                     self?.touchType = nil
                     return Observable.just(newVector)
                 default:
                     self?.movableVector = nil
                     self?.touchType = nil
-                    self?.firstGestureCoordinates = nil
+                    self?.previousGestureCoordinate = nil
                     return Observable.never()
                 }
             }
@@ -108,11 +121,16 @@ final class CanvasViewModel: RXViewModelProtocol {
             }
             .asDriverIgnoringErrors()
 
+        let moveCameraWithDelta = self.moveCamera
+            .asObservable()
+            .asDriverIgnoringErrors()
+
         return Output(
             showAllVectors: showAllVectors,
             editVector: editVector,
             deleteVector: deleteVector,
-            addVector: addVector
+            addVector: addVector,
+            moveCameraWithDelta: moveCameraWithDelta
         )
     }
 }
