@@ -4,12 +4,6 @@ final class MenuView: UIView {
 
     var theAddButtonCompletionHandler: (() -> Void)?
 
-    var vectorsCollectionDelegate: UICollectionViewDelegate? {
-        didSet {
-            vectorsCollection.delegate = vectorsCollectionDelegate
-        }
-    }
-
     let vectorsCollection: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .vertical
@@ -21,6 +15,7 @@ final class MenuView: UIView {
             VectorCollectionCell.self,
             forCellWithReuseIdentifier: VectorCollectionCell.identifier
         )
+        collectionView.bounces = false
         collectionView.backgroundColor = UIColor.black
         collectionView.layer.borderWidth = 1
         collectionView.layer.borderColor = UIColor.white.cgColor

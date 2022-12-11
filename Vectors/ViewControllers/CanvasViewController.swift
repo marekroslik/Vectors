@@ -101,7 +101,7 @@ final class CanvasViewController: UIViewController {
     }
 
     private func setupMenu() {
-        menuView.vectorsCollectionDelegate = self
+        menuView.vectorsCollection.delegate = self
         menuView.theAddButtonCompletionHandler = { [weak self] in
             guard #available(iOS 16.0, *) else { return }
             let bottomSheetViewController = AddViewController()
@@ -151,6 +151,11 @@ extension CanvasViewController {
 
     private func updateSnapshotWith(vector: VectorModel, animatingDifferences: Bool = false) {
         var snapshot = dataSource.snapshot()
+        guard
+            let vectorSnapshot = snapshot.itemIdentifiers.first(where: { $0.id == vector.id })
+        else { return }
+        vectorSnapshot.start = vector.start
+        vectorSnapshot.end = vector.end
         snapshot.reloadItems([vector])
         dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
     }
@@ -203,5 +208,42 @@ extension CanvasViewController: UICollectionViewDelegateFlowLayout {
         minimumInteritemSpacingForSectionAt section: Int
     ) -> CGFloat {
         return 0
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        contextMenuConfigurationForItemsAt indexPaths: [IndexPath],
+        point: CGPoint
+    ) -> UIContextMenuConfiguration? {
+        let config = UIContextMenuConfiguration(
+            identifier: nil,
+            previewProvider: nil
+        ) { [weak self] _ in
+            let open = UIAction(
+                title: "Delete",
+                image: UIImage(systemName: "trash"),
+                attributes: .destructive,
+                state: .off
+            ) { _ in
+                guard
+                    let index = indexPaths.first,
+                    let vector = self?.dataSource.itemIdentifier(for: index)
+                else {
+                    return
+                }
+                self?.deleteVector.accept(vector)
+            }
+            return UIMenu(title: "Action", options: UIMenu.Options.displayInline, children: [open])
+        }
+        return config
+    }
+
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard
+            let vector = self.dataSource.itemIdentifier(for: indexPath)
+        else {
+            return
+        }
+        self.scene?.showVector(id: vector.id)
     }
 }

@@ -15,7 +15,7 @@ class AddViewController: UIViewController {
         addView.acceptButtonCompletionHandler = { [weak self] vector in
             let start = vector.start
             let end = vector.end
-            self?.addVector?(VectorModel(id: UUID().uuidString, start: start, end: end))
+            self?.addVector?(VectorModel(start: start, end: end))
         }
     }
 

@@ -47,7 +47,7 @@ final class CanvasViewModel: RXViewModelProtocol {
                     return Observable.never()
                 case .changed:
                     guard
-                        var newVector = self?.movableVector else {
+                        let newVector = self?.movableVector else {
                         guard
                             let firstX = self?.previousGestureCoordinate?.x,
                             let firstY = self?.previousGestureCoordinate?.y

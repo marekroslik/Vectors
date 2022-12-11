@@ -1,13 +1,13 @@
 import UIKit
 
-struct VectorModel {
+class VectorModel {
     let id: String
     var start: CGPoint
     var end: CGPoint
     let color: UIColor
 
     init(
-        id: String,
+        id: String = UUID().uuidString,
         start: CGPoint,
         end: CGPoint
     ) {

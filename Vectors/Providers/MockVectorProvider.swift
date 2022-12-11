@@ -3,11 +3,18 @@ import Foundation
 final class MockVectorProvider: VectorProviderProtocol {
 
     private var mockVectors = [
-        VectorModel(id: "1", start: CGPoint(x: 0, y: 0), end: CGPoint(x: 1, y: 1)),
-        VectorModel(id: "2", start: CGPoint(x: 2, y: 2), end: CGPoint(x: 3, y: 3)),
-        VectorModel(id: "3", start: CGPoint(x: 4, y: 4), end: CGPoint(x: 5, y: 5)),
-        VectorModel(id: "4", start: CGPoint(x: 6, y: 6), end: CGPoint(x: 7, y: 7)),
-        VectorModel(id: "5", start: CGPoint(x: 8, y: 8), end: CGPoint(x: 9, y: 9))
+        VectorModel(start: CGPoint(x: 1, y: 2), end: CGPoint(x: 2, y: 1)),
+        VectorModel(start: CGPoint(x: 1, y: 3), end: CGPoint(x: 3, y: 1)),
+        VectorModel(start: CGPoint(x: 1, y: 4), end: CGPoint(x: 4, y: 1)),
+        VectorModel(start: CGPoint(x: -2, y: 1), end: CGPoint(x: -1, y: 2)),
+        VectorModel(start: CGPoint(x: -3, y: 1), end: CGPoint(x: -1, y: 3)),
+        VectorModel(start: CGPoint(x: -4, y: 1), end: CGPoint(x: -1, y: 4)),
+        VectorModel(start: CGPoint(x: 2, y: -1), end: CGPoint(x: 1, y: -2)),
+        VectorModel(start: CGPoint(x: 3, y: -1), end: CGPoint(x: 1, y: -3)),
+        VectorModel(start: CGPoint(x: 4, y: -1), end: CGPoint(x: 1, y: -4)),
+        VectorModel(start: CGPoint(x: -1, y: -2), end: CGPoint(x: -2, y: -1)),
+        VectorModel(start: CGPoint(x: -1, y: -3), end: CGPoint(x: -3, y: -1)),
+        VectorModel(start: CGPoint(x: -1, y: -4), end: CGPoint(x: -4, y: -1))
     ]
 
     func getAllVectors() -> [VectorModel] {

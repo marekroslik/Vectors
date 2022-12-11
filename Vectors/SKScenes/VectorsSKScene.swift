@@ -58,9 +58,19 @@ extension VectorsSKScene {
         self.childNode(withName: id)?.removeFromParent()
     }
 
-    func showVector(id: Int) {
-        guard let coordinates = self.childNode(withName: String(id))?.position else { return }
-        scene?.camera?.position = coordinates
+    func showVector(id: String) {
+        guard let vector = self.childNode(withName: id) else { return }
+        scene?.camera?.position.x = vector.frame.midX
+        scene?.camera?.position.y = vector.frame.midY
+        playSelectAnimation(node: vector)
+    }
+
+    private func playSelectAnimation(node: SKNode) {
+        let fadeAlphaFirst = SKAction.fadeAlpha(to: 0, duration: TimeInterval(0.1))
+        let fadeAlphaSecond = SKAction.fadeAlpha(to: 1, duration: TimeInterval(0.1))
+        let fadeSequence = SKAction.sequence([fadeAlphaFirst, fadeAlphaSecond])
+        let repeatAction = SKAction.repeat(fadeSequence, count: 3)
+        node.run(repeatAction)
     }
 }
 
