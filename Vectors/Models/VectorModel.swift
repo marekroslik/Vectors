@@ -21,7 +21,7 @@ struct VectorModel {
 extension VectorModel {
     func whereIsTouchFor(
         point touchPoint: CGPoint,
-        withTolerance tolerance: CGFloat = 0.2
+        withTolerance tolerance: CGFloat = 0.3
     ) -> Touch {
         if end.distance(toPoint: touchPoint) <= tolerance { return .end }
         if start.distance(toPoint: touchPoint) <= tolerance { return .start }

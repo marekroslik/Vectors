@@ -1,43 +1,32 @@
 import SpriteKit
+import RxSwift
+import RxCocoa
 
 final class VectorsSKScene: SKScene {
-    var vectors = [VectorModel]()
-
-    private var movableNode: SKNode?
-    private var touchType: TouchTypes?
-
-    enum TouchTypes {
-        case editVectorStartPosition
-        case editVectorEndPosition
-        case vectorParallelTranslation
-        case moveTheСamera
-    }
+    typealias Touch = (CGPoint, UIGestureRecognizer.State)
 
     private let blockSize: CGFloat = 100
     private let innerSize: CGFloat = 1000
 
+    private let panGesture = UIPanGestureRecognizer()
+
     override func didMove(to view: SKView) {
-        self.backgroundColor = .black
         drawGrid()
         addCamera()
         addGestures()
-
     }
 }
 
 // MARK: - Work with vectors
 extension VectorsSKScene {
-    func drawVector(
-        start: CGPoint,
-        end: CGPoint,
-        id: String,
-        color: UIColor,
+    func draw(
+        vector: VectorModel,
         arrowAngle: CGFloat = .pi / 6
     ) {
         let pointerLineLength = blockSize / 5
-        let start = CGPoint(x: start.x * blockSize, y: start.y * blockSize)
-        let end = CGPoint(x: end.x * blockSize, y: end.y * blockSize)
-        self.childNode(withName: id)?.removeFromParent()
+        let start = CGPoint(x: vector.start.x * blockSize, y: vector.start.y * blockSize)
+        let end = CGPoint(x: vector.end.x * blockSize, y: vector.end.y * blockSize)
+        self.childNode(withName: vector.id)?.removeFromParent()
         let path = CGMutablePath()
         path.move(to: start)
         path.addLine(to: end)
@@ -56,8 +45,8 @@ extension VectorsSKScene {
         path.move(to: end)
         path.addLine(to: arrowLine2)
         let line = SKShapeNode(path: path)
-        line.name = id
-        line.strokeColor = color
+        line.name = vector.id
+        line.strokeColor = vector.color
         line.lineWidth = blockSize / 50
         line.lineJoin = .round
         line.lineCap = .round
@@ -65,23 +54,11 @@ extension VectorsSKScene {
         self.addChild(line)
     }
 
-    func addVector(vector: VectorModel) {
-        self.vectors.append(vector)
-        drawVector(start: vector.start, end: vector.end, id: vector.id, color: vector.color)
-    }
-
     func deleteVector(id: String) {
         self.childNode(withName: id)?.removeFromParent()
     }
 
-    func redrawVectors(model: [VectorModel]) {
-        self.vectors = model
-        for vector in model {
-            drawVector(start: vector.start, end: vector.end, id: String(vector.id), color: vector.color)
-        }
-    }
-
-    private func showVector(id: Int) {
+    func showVector(id: Int) {
         guard let coordinates = self.childNode(withName: String(id))?.position else { return }
         scene?.camera?.position = coordinates
     }
@@ -89,135 +66,17 @@ extension VectorsSKScene {
 
 // MARK: - Add gestures
 extension VectorsSKScene {
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        // Check touch in self
-        guard
-            let touch = touches.first?.location(in: self)
-        else {
-            return
-        }
-        // Сheck if touch is in vector
-        guard
-            let vector = vectors.first(where: {
-                $0.whereIsTouchFor(
-                    point: touch.convertFrom(multiplyScalar: blockSize)
-                ) != .none })
-        else {
-            touchType = .moveTheСamera
-            return
-        }
-        // Set movable vector + touch type
-        movableNode = self.childNode(withName: vector.id)
-        switch vector.whereIsTouchFor(
-            point: touch.convertFrom(multiplyScalar: blockSize),
-            withTolerance: 0.2
-        ) {
-        case .start:
-            touchType = .editVectorStartPosition
-        case .end:
-            touchType = .editVectorEndPosition
-        case .body:
-            touchType = .vectorParallelTranslation
-        case .none:
-            touchType = .moveTheСamera
-        }
-
-    }
-
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard
-            let touchFirstX = touches.first?.location(in: self).x,
-            let touchPreviousX = touches.first?.previousLocation(in: self).x,
-            let touchFirstY = touches.first?.location(in: self).y,
-            let touchPreviousY = touches.first?.previousLocation(in: self).y
-        else { return }
-        switch touchType {
-        case .editVectorStartPosition:
-            actionEditVector(
-                startX: touchFirstX,
-                startY: touchFirstY
-            )
-        case .editVectorEndPosition:
-            actionEditVector(
-                endX: touchFirstX,
-                endY: touchFirstY
-            )
-        case .vectorParallelTranslation:
-            let xDelta = touchFirstX  - touchPreviousX
-            let yDelta = touchFirstY  - touchPreviousY
-            actionVectorParallelTranslation(
-                xDelta: xDelta,
-                yDelta: yDelta
-            )
-        case .moveTheСamera:
-            let xDelta = touchFirstX  - touchPreviousX
-            let yDelta = touchFirstY  - touchPreviousY
-            moveTheCamera(
-                xDelta: xDelta,
-                yDelta: yDelta
-            )
-        default:
-            return
-        }
-    }
-
-    private func getMovableNodeColor() -> UIColor? {
-        if let node = movableNode as? SKShapeNode {
-            return(node.strokeColor)
-        }
-        return nil
-    }
-
-    private func actionEditVector(startX: CGFloat, startY: CGFloat) {
-        if
-            let movableNode,
-            let indexMovableNode = vectors.firstIndex(
-                where: {
-                    $0.id == movableNode.name
-                }
-            ),
-            let color = getMovableNodeColor() {
-            vectors[indexMovableNode].start = CGPoint(
-                x: startX / blockSize,
-                y: startY / blockSize
-            )
-            drawVector(
-                start: vectors[indexMovableNode].start,
-                end: vectors[indexMovableNode].end,
-                id: vectors[indexMovableNode].id,
-                color: color
-            )
-        }
-    }
-
-    private func actionEditVector(endX: CGFloat, endY: CGFloat) {
-        if
-            let movableNode,
-            let indexMovableNode = vectors.firstIndex(where: { $0.id == movableNode.name }),
-            let color = getMovableNodeColor() {
-            vectors[indexMovableNode].end = CGPoint(x: endX / blockSize, y: endY / blockSize)
-            drawVector(
-                start: vectors[indexMovableNode].start,
-                end: vectors[indexMovableNode].end,
-                id: vectors[indexMovableNode].id,
-                color: color
-            )
-        }
-    }
-
-    private func actionVectorParallelTranslation(xDelta: CGFloat, yDelta: CGFloat) {
-        if
-            let movableNode,
-            let indexMovableNode = vectors.firstIndex(where: { $0.id == movableNode.name }) {
-            vectors[indexMovableNode].start.x += xDelta / blockSize
-            vectors[indexMovableNode].start.y += yDelta / blockSize
-            vectors[indexMovableNode].end.x += xDelta / blockSize
-            vectors[indexMovableNode].end.y += yDelta / blockSize
-            movableNode.position = CGPoint(
-                x: movableNode.position.x + xDelta,
-                y: movableNode.position.y + yDelta
-            )
-        }
+    func panGestureObserver() -> Observable<Touch> {
+        panGesture
+            .rx
+            .event
+            .flatMap { [weak self] recognizer -> Observable<Touch> in
+                guard let self = self else { return Observable.never() }
+                let pointInView = recognizer.location(in: self.view)
+                let pointInScene = self.convertPoint(fromView: pointInView)
+                let convertPoint = pointInScene.convertFrom(multiplyScalar: self.blockSize)
+                return(Observable.just((convertPoint, recognizer.state)))
+            }
     }
 
     private func moveTheCamera(xDelta: CGFloat, yDelta: CGFloat) {
@@ -243,19 +102,6 @@ extension VectorsSKScene {
         }
     }
 
-    override  func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        movableNode = nil
-        touchType = nil
-    }
-    override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        movableNode = nil
-        touchType = nil
-    }
-
-    private func addGestures() {
-        doubleTapChangeCameraPosition()
-    }
-
     private func doubleTapChangeCameraPosition() {
         let tapGesture = UITapGestureRecognizer()
         tapGesture.addTarget(self, action: #selector(doubleTapChangeCameraPosition(_:)))
@@ -266,11 +112,21 @@ extension VectorsSKScene {
     @objc private func doubleTapChangeCameraPosition(_ sender: UIPanGestureRecognizer) {
         camera?.position = CGPoint.zero
     }
+
+    private func addPanGesture() {
+        view?.addGestureRecognizer(panGesture)
+    }
+
+    private func addGestures() {
+        doubleTapChangeCameraPosition()
+        addPanGesture()
+    }
 }
 
 // MARK: - Work with background
 extension VectorsSKScene {
     private func drawGrid() {
+        self.backgroundColor = .black
         drawVerticalLines()
         drawHorizontalLines()
         drawVerticalNumbers()

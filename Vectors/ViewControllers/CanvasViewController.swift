@@ -21,24 +21,7 @@ final class CanvasViewController: UIViewController {
         addSubviews()
         setupConstraints()
         setupScene()
-        menuView.vectorsCollectionDelegate = self
-        menuView.theAddButtonCompletionHandler = { [weak self] in
-            guard #available(iOS 16.0, *) else { return }
-            let bottomSheetViewController = AddViewController()
-            if let sheetController = bottomSheetViewController.presentationController
-                as? UISheetPresentationController {
-                sheetController.detents = [
-                    .custom { _ in
-                    guard let self else { return nil }
-                    return self.view.bounds.height / 3 - self.view.safeAreaInsets.bottom
-                } ]
-                sheetController.prefersGrabberVisible = true
-            }
-            bottomSheetViewController.addVector = { vector in
-                self?.addVector.accept(vector)
-            }
-            self?.present(bottomSheetViewController, animated: true)
-        }
+        setupMenu()
         bindViewModel()
         getAllVectors.accept(())
     }
@@ -46,15 +29,17 @@ final class CanvasViewController: UIViewController {
     private func bindViewModel() {
         let inputs = CanvasViewModel.Input(
             showAllVectors: getAllVectors.asObservable(),
-            editVector: editVector.asObservable(),
             deleteVector: deleteVector.asObservable(),
-            addVector: addVector.asObservable()
+            addVector: addVector.asObservable(),
+            gestureRecognizer: scene!.panGestureObserver()
         )
         let outputs = viewModel.transform(input: inputs)
         outputs.showAllVectors
             .do { [weak self] model in
                 self?.applySnapshot(model: model)
-                self?.scene?.redrawVectors(model: model)
+                for vector in model {
+                    self?.scene?.draw(vector: vector)
+                }
             }
             .drive()
             .disposed(by: bag)
@@ -62,7 +47,7 @@ final class CanvasViewController: UIViewController {
         outputs.editVector
             .do { [weak self] model in
                 self?.updateSnapshotWith(vector: model)
-                self?.scene?.drawVector(start: model.start, end: model.end, id: model.id, color: model.color)
+                self?.scene?.draw(vector: model)
             }
             .drive()
             .disposed(by: bag)
@@ -78,7 +63,6 @@ final class CanvasViewController: UIViewController {
         outputs.addVector
             .do { [weak self] model in
                 self?.addSnapshotWith(vector: model)
-                self?.scene?.addVector(vector: model)
             }
             .drive()
             .disposed(by: bag)
@@ -104,6 +88,27 @@ final class CanvasViewController: UIViewController {
         scene.scaleMode = .aspectFill
         self.scene = scene
         canvasView.setupWith(scene: scene)
+    }
+
+    private func setupMenu() {
+        menuView.vectorsCollectionDelegate = self
+        menuView.theAddButtonCompletionHandler = { [weak self] in
+            guard #available(iOS 16.0, *) else { return }
+            let bottomSheetViewController = AddViewController()
+            if let sheetController = bottomSheetViewController.presentationController
+                as? UISheetPresentationController {
+                sheetController.detents = [
+                    .custom { _ in
+                        guard let self else { return nil }
+                        return self.view.bounds.height / 3 - self.view.safeAreaInsets.bottom
+                    } ]
+                sheetController.prefersGrabberVisible = true
+            }
+            bottomSheetViewController.addVector = { vector in
+                self?.addVector.accept(vector)
+            }
+            self?.present(bottomSheetViewController, animated: true)
+        }
     }
 }
 
