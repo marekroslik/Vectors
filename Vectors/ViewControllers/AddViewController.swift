@@ -2,7 +2,7 @@ import SnapKit
 import RxSwift
 import RxCocoa
 
-class AddViewController: UIViewController {
+final class AddViewController: UIViewController {
 
     var addVector: ((VectorModel) -> Void)?
 

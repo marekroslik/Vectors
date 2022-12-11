@@ -1,6 +1,6 @@
 import UIKit
 
-class VectorModel {
+final class VectorModel {
     let id: String
     var start: CGPoint
     var end: CGPoint
