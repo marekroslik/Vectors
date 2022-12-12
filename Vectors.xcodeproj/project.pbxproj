@@ -26,6 +26,8 @@
 		F9B498232934C769008DD0CD /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F9B498212934C769008DD0CD /* LaunchScreen.storyboard */; };
 		F9C6F71D2934DC88002A4D64 /* VectorsSKScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C6F71C2934DC88002A4D64 /* VectorsSKScene.swift */; };
 		F9C6F71F29350ADF002A4D64 /* VectorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9C6F71E29350ADF002A4D64 /* VectorModel.swift */; };
+		F9CE1965294717B80069395D /* RealmVectorProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CE1964294717B80069395D /* RealmVectorProvider.swift */; };
+		F9CE196729471E770069395D /* RealmVectorModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9CE196629471E770069395D /* RealmVectorModel.swift */; };
 		F9DC475B2938D15C00F94A29 /* CGPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9DC475A2938D15C00F94A29 /* CGPoint.swift */; };
 		F9E5565A2934D19F00FCFB91 /* Strings+Generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E556582934D19F00FCFB91 /* Strings+Generated.swift */; };
 		F9E5565B2934D19F00FCFB91 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9E556592934D19F00FCFB91 /* Assets.swift */; };
@@ -57,6 +59,8 @@
 		F9B498242934C769008DD0CD /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F9C6F71C2934DC88002A4D64 /* VectorsSKScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorsSKScene.swift; sourceTree = "<group>"; };
 		F9C6F71E29350ADF002A4D64 /* VectorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VectorModel.swift; sourceTree = "<group>"; };
+		F9CE1964294717B80069395D /* RealmVectorProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmVectorProvider.swift; sourceTree = "<group>"; };
+		F9CE196629471E770069395D /* RealmVectorModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmVectorModel.swift; sourceTree = "<group>"; };
 		F9DC475A2938D15C00F94A29 /* CGPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGPoint.swift; sourceTree = "<group>"; };
 		F9E556582934D19F00FCFB91 /* Strings+Generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Strings+Generated.swift"; sourceTree = "<group>"; };
 		F9E556592934D19F00FCFB91 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
@@ -105,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				F96956E829409BAC00A16CD6 /* MockVectorProvider.swift */,
+				F9CE1964294717B80069395D /* RealmVectorProvider.swift */,
 			);
 			path = Providers;
 			sourceTree = "<group>";
@@ -113,6 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				F9C6F71E29350ADF002A4D64 /* VectorModel.swift */,
+				F9CE196629471E770069395D /* RealmVectorModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -237,8 +243,8 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F9B498272934C769008DD0CD /* Build configuration list for PBXNativeTarget "Vectors" */;
 			buildPhases = (
-				F9FECC522934D060004803F8 /* SwiftLint Script */,
 				E5C136F602D262D66C9DE7DB /* [CP] Check Pods Manifest.lock */,
+				F9FECC522934D060004803F8 /* SwiftLint Script */,
 				F9FECC532934D07B004803F8 /* SwiftGen Script */,
 				F9B4980F2934C768008DD0CD /* Sources */,
 				F9B498102934C768008DD0CD /* Frameworks */,
@@ -388,6 +394,7 @@
 				F96956E929409BAC00A16CD6 /* MockVectorProvider.swift in Sources */,
 				F9B4981B2934C769008DD0CD /* CanvasViewController.swift in Sources */,
 				F9C6F71D2934DC88002A4D64 /* VectorsSKScene.swift in Sources */,
+				F9CE1965294717B80069395D /* RealmVectorProvider.swift in Sources */,
 				F9F27F7B293E36B80027421C /* CanvasView.swift in Sources */,
 				F9DC475B2938D15C00F94A29 /* CGPoint.swift in Sources */,
 				F9AD2AFB2942085900895983 /* UIColor.swift in Sources */,
@@ -402,6 +409,7 @@
 				F9C6F71F29350ADF002A4D64 /* VectorModel.swift in Sources */,
 				F913A23C2940F762008370B5 /* ViewModelProtocol.swift in Sources */,
 				F9312F302944A23A003B2C89 /* Observable.swift in Sources */,
+				F9CE196729471E770069395D /* RealmVectorModel.swift in Sources */,
 				F96956F22940AC7F00A16CD6 /* BaseButton.swift in Sources */,
 				F913A23A2940EF2C008370B5 /* CanvasViewModel.swift in Sources */,
 				F9E5565A2934D19F00FCFB91 /* Strings+Generated.swift in Sources */,

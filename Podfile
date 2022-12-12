@@ -19,5 +19,6 @@ pod 'SwiftGen'
 pod 'SnapKit'
 pod 'RxSwift'
 pod 'RxCocoa'
+pod 'RealmSwift'
 
 end

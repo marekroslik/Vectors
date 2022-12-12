@@ -8,7 +8,7 @@ final class CanvasViewController: UIViewController {
     private let menuView = MenuView()
     private var scene: VectorsSKScene?
 
-    private let viewModel = CanvasViewModel(vectorProvider: MockVectorProvider())
+    private let viewModel = CanvasViewModel(vectorProvider: RealmVectorProvider())
     private lazy var dataSource = makeDataSource()
 
     private let bag = DisposeBag()
