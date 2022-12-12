@@ -4,8 +4,10 @@ import Swinject
 @main
 final class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-
-    let container = DIProvider().container
+    let container: Container = {
+        let provider = DIProvider()
+        return provider.container
+    }()
 
     func application(
         _ application: UIApplication,
