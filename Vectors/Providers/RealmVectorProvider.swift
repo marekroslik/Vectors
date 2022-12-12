@@ -18,13 +18,17 @@ final class RealmVectorProvider: VectorProviderProtocol {
         try? realm?.write {
             realm?.add(RealmVectorModel.create(withModel: vector))
         }
+        vectors.append(vector)
     }
 
     func delete(id: String) {
-        if var realmVector = realm?.objects(RealmVectorModel.self).first {
+        if var realmVector = realm?.objects(RealmVectorModel.self).first(where: {$0.id == id }) {
             try? realm?.write {
                 realm?.delete(realmVector)
             }
+        }
+        if let index = vectors.firstIndex(where: { $0.id == id }) {
+            vectors.remove(at: index)
         }
     }
 
@@ -37,6 +41,9 @@ final class RealmVectorProvider: VectorProviderProtocol {
                 realmVector.endY = vector.end.y
             }
             print(realmVector)
+        }
+        if let index = vectors.firstIndex(where: {$0.id == vector.id }) {
+            vectors[index] = vector
         }
     }
 }
