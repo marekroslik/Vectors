@@ -35,13 +35,16 @@ final class CanvasViewModel: RXViewModelProtocol {
     func transform(input: Input) -> Output {
         let editVector = input.gestureRecognizer
             .flatMap { [weak self] point, state -> Observable<VectorModel> in
+                if self == nil { print("self = nil") }
                 switch state {
                 case .began:
                     self?.previousGestureCoordinate = point
                     guard
                         let vector = self?.vectorProvider.getAllVectors().first(where: { vector in
                             vector.whereIsTouchFor(point: point) != .none
-                        }) else { return Observable.never() }
+                        }) else {
+                        return Observable.never()
+                    }
                     self?.movableVector = vector
                     self?.touchType = vector.whereIsTouchFor(point: point)
                     return Observable.never()

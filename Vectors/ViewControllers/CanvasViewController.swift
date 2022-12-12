@@ -2,13 +2,14 @@ import SnapKit
 import SpriteKit
 import RxSwift
 import RxCocoa
+import Swinject
 
 final class CanvasViewController: UIViewController {
     private let canvasView = CanvasView()
     private let menuView = MenuView()
     private var scene: VectorsSKScene?
 
-    private let viewModel = CanvasViewModel(vectorProvider: RealmVectorProvider())
+    private let viewModel: CanvasViewModel
     private lazy var dataSource = makeDataSource()
 
     private let bag = DisposeBag()
@@ -24,6 +25,15 @@ final class CanvasViewController: UIViewController {
         setupMenu()
         bindViewModel()
         getAllVectors.accept(())
+    }
+
+    init(viewModel: CanvasViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     private func bindViewModel() {

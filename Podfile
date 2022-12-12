@@ -20,5 +20,6 @@ pod 'SnapKit'
 pod 'RxSwift'
 pod 'RxCocoa'
 pod 'RealmSwift'
+pod 'Swinject'
 
 end

@@ -9,7 +9,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = CanvasViewController()
+        let dependencyProvider = DIProvider()
+        let viewModel = dependencyProvider.container.resolve(CanvasViewModel.self, name: "Realm")
+        window?.rootViewController = CanvasViewController(viewModel: viewModel!)
         window?.makeKeyAndVisible()
         return true
     }
