@@ -9,7 +9,7 @@ final class DIProvider {
     }
 
     private func setup() {
-        container.register(VectorProviderProtocol.self, name: "Realm") { _ in
+        container.register(VectorProviderProtocol.self) { _ in
             return RealmVectorProvider()
         }
 
@@ -17,8 +17,8 @@ final class DIProvider {
             return MockVectorProvider()
         }
 
-        container.register(CanvasViewModel.self, name: "Realm") { resolver in
-            let provider = resolver.resolve(VectorProviderProtocol.self, name: "Realm")
+        container.register(CanvasViewModel.self) { resolver in
+            let provider = resolver.resolve(VectorProviderProtocol.self)
             let canvas = CanvasViewModel(vectorProvider: provider!)
             return canvas
         }
@@ -27,6 +27,18 @@ final class DIProvider {
             let provider = resolver.resolve(VectorProviderProtocol.self, name: "Mock")
             let canvas = CanvasViewModel(vectorProvider: provider!)
             return canvas
+        }
+
+        container.register(CanvasViewController.self) { resolver in
+            let viewModel = resolver.resolve(CanvasViewModel.self)
+            let viewController = CanvasViewController(viewModel: viewModel!)
+            return viewController
+        }
+
+        container.register(CanvasViewController.self, name: "Mock") { resolver in
+            let viewModel = resolver.resolve(CanvasViewModel.self, name: "Mock")
+            let viewController = CanvasViewController(viewModel: viewModel!)
+            return viewController
         }
     }
 }
